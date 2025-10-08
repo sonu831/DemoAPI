@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi
+  labels:
+    app: webapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webapi
+  template:
+    metadata:
+      labels:
+        app: webapi
+    spec:
+      containers:
+      - name: webapi
+        image: my-webapi:latest12
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapi-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: webapi
+  ports:
+  - protocol: TCP
+    port: 5052          # ? Changed to 5052 (like your Docker)
+    targetPort: 8080    # ? Still maps to pod's 8080

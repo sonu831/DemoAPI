@@ -1,0 +1,79 @@
+@SampleWebAPI_HostAddress = http://localhost:5095
+
+### Get Weather Forecast
+GET {{SampleWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### Get All Students
+GET {{SampleWebAPI_HostAddress}}/api/students
+Accept: application/json
+
+### Get Student by ID
+GET {{SampleWebAPI_HostAddress}}/api/students/1
+Accept: application/json
+
+### Create New Student
+POST {{SampleWebAPI_HostAddress}}/api/students
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "dateOfBirth": "2000-01-15",
+  "enrollmentDate": "2024-09-01",
+  "phoneNumber": "555-1234",
+  "address": "123 Main St"
+}
+
+### Update Student
+PUT {{SampleWebAPI_HostAddress}}/api/students/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@example.com",
+  "dateOfBirth": "2000-01-15",
+  "enrollmentDate": "2024-09-01",
+  "phoneNumber": "555-1234",
+  "address": "456 Oak Ave"
+}
+
+### Delete Student
+DELETE {{SampleWebAPI_HostAddress}}/api/students/1
+
+### Get All Courses
+GET {{SampleWebAPI_HostAddress}}/api/courses
+Accept: application/json
+
+### Get Course by ID
+GET {{SampleWebAPI_HostAddress}}/api/courses/1
+Accept: application/json
+
+### Create New Course
+POST {{SampleWebAPI_HostAddress}}/api/courses
+Content-Type: application/json
+
+{
+  "courseName": "Database Systems",
+  "courseCode": "CS201",
+  "credits": 4,
+  "description": "Introduction to database design and SQL"
+}
+
+### Update Course
+PUT {{SampleWebAPI_HostAddress}}/api/courses/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "courseName": "Advanced Computer Science",
+  "courseCode": "CS101",
+  "credits": 4,
+  "description": "Updated description"
+}
+
+### Delete Course
+DELETE {{SampleWebAPI_HostAddress}}/api/courses/1
