@@ -1,0 +1,327 @@
+/* Custom Swagger UI Styling */
+
+/* Enhanced Topbar */
+.swagger-ui .topbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.swagger-ui .topbar .download-url-wrapper {
+    display: none;
+}
+
+.swagger-ui .topbar a {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+/* Custom Info Section */
+.swagger-ui .info {
+    margin: 40px 0;
+}
+
+.swagger-ui .info .title {
+    font-size: 3em !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+}
+
+.swagger-ui .info .description {
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+/* Opblock Styling */
+.swagger-ui .opblock {
+    border-radius: 10px !important;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.swagger-ui .opblock:hover {
+    transform: translateX(10px);
+    box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.swagger-ui .opblock.opblock-get {
+    background: rgba(97, 175, 254, 0.1) !important;
+    border: 2px solid #61affe !important;
+}
+
+.swagger-ui .opblock.opblock-get .opblock-summary {
+    border-color: #61affe !important;
+}
+
+.swagger-ui .opblock.opblock-post {
+    background: rgba(73, 204, 144, 0.1) !important;
+    border: 2px solid #49cc90 !important;
+}
+
+.swagger-ui .opblock.opblock-post .opblock-summary {
+    border-color: #49cc90 !important;
+}
+
+.swagger-ui .opblock.opblock-put {
+    background: rgba(252, 161, 48, 0.1) !important;
+    border: 2px solid #fca130 !important;
+}
+
+.swagger-ui .opblock.opblock-put .opblock-summary {
+    border-color: #fca130 !important;
+}
+
+.swagger-ui .opblock.opblock-delete {
+    background: rgba(249, 62, 62, 0.1) !important;
+    border: 2px solid #f93e3e !important;
+}
+
+.swagger-ui .opblock.opblock-delete .opblock-summary {
+    border-color: #f93e3e !important;
+}
+
+/* Opblock Summary */
+.swagger-ui .opblock-summary {
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.swagger-ui .opblock-summary-path {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Try it out button */
+.swagger-ui .btn.try-out__btn {
+    background: #667eea !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.swagger-ui .btn.try-out__btn:hover {
+    background: #5568d3 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Execute button */
+.swagger-ui .btn.execute {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.swagger-ui .btn.execute:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+}
+
+/* Cancel button */
+.swagger-ui .btn.btn-clear {
+    background: #f5f5f5 !important;
+    color: #333 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px;
+}
+
+/* Parameters section */
+.swagger-ui .parameters {
+    background: #f9fafb;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.swagger-ui .parameters-col_description input[type="text"],
+.swagger-ui .parameters-col_description select,
+.swagger-ui .parameters-col_description textarea {
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.swagger-ui .parameters-col_description input[type="text"]:focus,
+.swagger-ui .parameters-col_description select:focus,
+.swagger-ui .parameters-col_description textarea:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
+}
+
+/* Response section */
+.swagger-ui .responses-wrapper {
+    margin-top: 20px;
+}
+
+.swagger-ui .responses-inner {
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 20px;
+    border: 2px solid #e2e8f0;
+}
+
+.swagger-ui .response {
+    margin: 10px 0;
+}
+
+.swagger-ui .response .response-col_status {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Highlight response */
+.swagger-ui .highlight-code {
+    background: #1e293b !important;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.swagger-ui .highlight-code pre {
+    background: transparent !important;
+    color: #e2e8f0;
+}
+
+/* Model section */
+.swagger-ui .model-box {
+    background: #f9fafb;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.swagger-ui .model-title {
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    border: 3px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.swagger-ui .opblock {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Authorization button */
+.swagger-ui .btn.authorize {
+    background: #667eea !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.swagger-ui .btn.authorize svg {
+    fill: white !important;
+}
+
+/* Scheme container */
+.swagger-ui .scheme-container {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading spinner */
+.swagger-ui .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+/* Markdown styling */
+.swagger-ui .markdown p {
+    line-height: 1.8;
+    margin: 10px 0;
+}
+
+.swagger-ui .markdown h3 {
+    color: #667eea;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.swagger-ui .markdown code {
+    background: #667eea;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.swagger-ui .markdown ul {
+    margin-left: 20px;
+}
+
+.swagger-ui .markdown li {
+    margin: 8px 0;
+}
+
+/* Info contact */
+.swagger-ui .info .contact a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.swagger-ui .info .contact a:hover {
+    text-decoration: underline;
+}
+
+/* Custom badge for version */
+.swagger-ui .info .version {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 10px;
+}

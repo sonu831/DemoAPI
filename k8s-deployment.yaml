@@ -1,3 +1,113 @@
+# ConfigMap for connection strings and settings
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapi-config
+data:
+  ASPNETCORE_ENVIRONMENT: "Development"
+  DB_SERVER: "sqlserver-service"
+  DB_NAME: "StudentManagementDB"
+  DB_USER: "sa"
+---
+# Secret for sensitive data (passwords)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: webapi-secret
+type: Opaque
+stringData:
+  DB_PASSWORD: "YourStrong@Passw0rd"
+---
+# SQL Server PersistentVolumeClaim (for data persistence)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sqlserver-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+# SQL Server Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver
+  labels:
+    app: sqlserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlserver
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+    spec:
+      containers:
+      - name: sqlserver
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: webapi-secret
+              key: DB_PASSWORD
+        volumeMounts:
+        - name: sqlserver-data
+          mountPath: /var/opt/mssql
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "1000m"
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" -C || exit 1
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" -C || exit 1
+          initialDelaySeconds: 45
+          periodSeconds: 20
+          timeoutSeconds: 5
+      volumes:
+      - name: sqlserver-data
+        persistentVolumeClaim:
+          claimName: sqlserver-pvc
+---
+# SQL Server Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlserver-service
+spec:
+  selector:
+    app: sqlserver
+  ports:
+  - protocol: TCP
+    port: 1433
+    targetPort: 1433
+  type: ClusterIP
+---
+# Web API Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,15 +132,74 @@ spec:
         - containerPort: 8080
         env:
         - name: ASPNETCORE_ENVIRONMENT
-          value: "Development"
+          valueFrom:
+            configMapKeyRef:
+              name: webapi-config
+              key: ASPNETCORE_ENVIRONMENT
+        - name: DB_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: webapi-config
+              key: DB_SERVER
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: webapi-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: webapi-config
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: webapi-secret
+              key: DB_PASSWORD
+        # Kubernetes Pod Information (using Downward API)
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: SERVICE_NAME
+          value: "webapi-service"
         resources:
           requests:
             memory: "128Mi"
             cpu: "100m"
           limits:
-            memory: "256Mi"
-            cpu: "250m"
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /api/systeminfo
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 20
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/systeminfo
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
 ---
+# Web API Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -41,5 +210,6 @@ spec:
     app: webapi
   ports:
   - protocol: TCP
-    port: 5052          # ? Changed to 5052 (like your Docker)
-    targetPort: 8080    # ? Still maps to pod's 8080
+    port: 5052
+    targetPort: 8080
+    name: http
