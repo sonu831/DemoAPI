@@ -9,14 +9,17 @@ data:
   DB_NAME: "StudentManagementDB"
   DB_USER: "sa"
 ---
+# Secret is created separately from .env file using:
+# kubectl create secret generic webapi-secret --from-env-file=.env
+
 # Secret for sensitive data (passwords)
-apiVersion: v1
-kind: Secret
-metadata:
-  name: webapi-secret
-type: Opaque
-stringData:
-  DB_PASSWORD: "YourStrong@Passw0rd"
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: webapi-secret
+# type: Opaque
+# stringData:
+#   DB_PASSWORD: "YourStrong@Passw0rd"
 ---
 # SQL Server PersistentVolumeClaim (for data persistence)
 apiVersion: v1
@@ -70,42 +73,39 @@ spec:
           limits:
             memory: "4Gi"
             cpu: "1000m"
+        # Using TCP probes instead of sqlcmd for better reliability
         readinessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" -C || exit 1
+          tcpSocket:
+            port: 1433
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
+          failureThreshold: 3
         livenessProbe:
-          exec:
-            command:
-            - /bin/sh
-            - -c
-            - /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" -C || exit 1
-          initialDelaySeconds: 45
+          tcpSocket:
+            port: 1433
+          initialDelaySeconds: 60
           periodSeconds: 20
           timeoutSeconds: 5
+          failureThreshold: 3
       volumes:
       - name: sqlserver-data
         persistentVolumeClaim:
           claimName: sqlserver-pvc
 ---
-# SQL Server Service
+# SQL Server Service - FIXED: Removed duplicate type field
 apiVersion: v1
 kind: Service
 metadata:
   name: sqlserver-service
 spec:
+  type: LoadBalancer
   selector:
     app: sqlserver
   ports:
   - protocol: TCP
     port: 1433
     targetPort: 1433
-  type: ClusterIP
 ---
 # Web API Deployment
 apiVersion: apps/v1
@@ -124,9 +124,10 @@ spec:
       labels:
         app: webapi
     spec:
+      serviceAccountName: webapi-serviceaccount
       containers:
       - name: webapi
-        image: my-webapi:latest12
+        image: my-webapi:latest17
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

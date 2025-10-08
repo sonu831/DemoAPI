@@ -28,5 +28,53 @@ namespace SampleWebAPI.Models
         public bool IsRunningInContainer { get; set; }
         public DateTime ServerTime { get; set; }
         public string ServerTimeZone { get; set; } = string.Empty;
+        public ClusterInfo? ClusterInfo { get; set; }
+    }
+
+    public class ClusterInfo
+    {
+        public int TotalPods { get; set; }
+        public int RunningPods { get; set; }
+        public int PendingPods { get; set; }
+        public int FailedPods { get; set; }
+        public int TotalServices { get; set; }
+        public int TotalNodes { get; set; }
+        public int TotalDeployments { get; set; }
+        public List<PodInfo> Pods { get; set; } = new();
+        public List<ServiceInfo> Services { get; set; } = new();
+        public List<NodeInfo> Nodes { get; set; } = new();
+        public List<DeploymentInfo> Deployments { get; set; } = new();
+        public string? Error { get; set; }
+    }
+
+    public class PodInfo
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
+        public string? PodIP { get; set; }
+        public string? NodeName { get; set; }
+    }
+
+    public class ServiceInfo
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
+        public string? ClusterIP { get; set; }
+        public int Port { get; set; }
+    }
+
+    public class NodeInfo
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
+        public string? KubernetesVersion { get; set; }
+        public string? OSImage { get; set; }
+    }
+
+    public class DeploymentInfo
+    {
+        public string Name { get; set; } = string.Empty;
+        public int Replicas { get; set; }
+        public int ReadyReplicas { get; set; }
     }
 }

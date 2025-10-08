@@ -8,42 +8,159 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+// Add HttpClient for Kubernetes API calls
+builder.Services.AddHttpClient();
+
 // Enhanced Swagger Configuration
 builder.Services.AddSwaggerGen(c =>
 {
+    var podName = Environment.GetEnvironmentVariable("POD_NAME") ?? "Not in Kubernetes";
+    var podNamespace = Environment.GetEnvironmentVariable("POD_NAMESPACE") ?? "default";
+    var nodeName = Environment.GetEnvironmentVariable("NODE_NAME") ?? "N/A";
+    var podIP = Environment.GetEnvironmentVariable("POD_IP") ?? "N/A";
+    var dbServer = builder.Configuration["DB_SERVER"] ?? "LocalDB";
+    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
+
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "🎓 Student Management System API",
         Version = "v1.0.0",
-        Description = @"
-<div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin: 20px 0;'>
-    <h2>🚀 System Information</h2>
-    <div style='display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;'>
-        <div>
-            <strong>🏷️ Environment:</strong> " + (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development") + @"<br/>
-            <strong>🗄️ Database:</strong> " + (builder.Configuration["DB_SERVER"] ?? "LocalDB") + @"<br/>
-            <strong>📦 Pod Name:</strong> " + (Environment.GetEnvironmentVariable("POD_NAME") ?? "Not in Kubernetes") + @"
-        </div>
-        <div>
-            <strong>🌐 Namespace:</strong> " + (Environment.GetEnvironmentVariable("POD_NAMESPACE") ?? "default") + @"<br/>
-            <strong>🖥️ Node:</strong> " + (Environment.GetEnvironmentVariable("NODE_NAME") ?? "N/A") + @"<br/>
-            <strong>📍 Pod IP:</strong> " + (Environment.GetEnvironmentVariable("POD_IP") ?? "N/A") + @"
-        </div>
-    </div>
-</div>
+        Description = $@"
+## 🚀 Current System Information
 
-<h3>📚 Available Endpoints</h3>
-<ul>
-    <li><strong>Students API:</strong> Manage student records</li>
-    <li><strong>Courses API:</strong> Manage course information</li>
-    <li><strong>Enrollments API:</strong> Track student enrollments</li>
-    <li><strong>Departments API:</strong> Manage department data</li>
-    <li><strong>System Info:</strong> Real-time system and database statistics at <code>/api/systeminfo</code></li>
-</ul>
+### 📦 Pod Information
+- **Pod Name:** `{podName}`
+- **Namespace:** `{podNamespace}`
+- **Pod IP:** `{podIP}`
+- **Node:** `{nodeName}`
 
-<div style='background: #f0f4ff; padding: 15px; border-left: 4px solid #667eea; margin: 20px 0;'>
-    <strong>💡 Quick Start:</strong> Use the <code>GET /api/systeminfo</code> endpoint to view complete real-time system information including Pod details, database connection status, and record counts.
-</div>
+### 🗄️ Database Connection
+- **DB Server:** `{dbServer}`
+- **DB Port:** `1433`
+- **Database:** `StudentManagementDB`
+- **Environment:** `{environment}`
+
+### 🌐 API Service
+- **Service Name:** `webapi-service`
+- **Service Port:** `5052` (External)
+- **Container Port:** `8080` (Internal)
+- **Protocol:** `HTTP`
+
+### 🎯 Cluster Overview
+- **API Replicas:** 2 Pods
+- **SQL Server:** 1 Pod
+- **Load Balancer:** Enabled
+- **Service Type:** LoadBalancer
+
+---
+
+## 📚 Available Endpoints
+
+### 👥 Students API
+Manage student records with full CRUD operations
+- `GET /api/students` - Get all students
+- `GET /api/students/{{id}}` - Get student by ID
+- `POST /api/students` - Create new student
+- `PUT /api/students/{{id}}` - Update student
+- `DELETE /api/students/{{id}}` - Delete student
+
+### 📚 Courses API
+Manage course information
+- `GET /api/courses` - Get all courses
+- `GET /api/courses/{{id}}` - Get course by ID
+- `POST /api/courses` - Create new course
+- `PUT /api/courses/{{id}}` - Update course
+- `DELETE /api/courses/{{id}}` - Delete course
+
+### 📝 Enrollments API
+Track student course enrollments
+- `GET /api/enrollments` - Get all enrollments
+- `GET /api/enrollments/student/{{id}}` - Get student's enrollments
+- `POST /api/enrollments` - Create enrollment
+- `PUT /api/enrollments/{{id}}` - Update enrollment
+- `DELETE /api/enrollments/{{id}}` - Delete enrollment
+
+### 🏢 Departments API
+Manage department data
+- `GET /api/departments` - Get all departments
+- `GET /api/departments/{{id}}` - Get department by ID
+- `POST /api/departments` - Create department
+- `PUT /api/departments/{{id}}` - Update department
+- `DELETE /api/departments/{{id}}` - Delete department
+
+---
+
+## 🔍 System Monitoring & Cluster Information
+
+### Real-Time Cluster Dashboard: `/api/systeminfo`
+
+This endpoint provides comprehensive cluster and system information:
+
+#### 📊 What You'll Get:
+1. **Pod Details**
+   - View which specific pod served your request
+   - Pod name, IP address, and node location
+   - Container name and runtime information
+
+2. **Service Mapping**
+   - All services in the namespace
+   - Service types (ClusterIP, LoadBalancer, NodePort)
+   - Service IPs and ports
+
+3. **Node Distribution**
+   - All nodes in the cluster
+   - Node status (Ready/NotReady)
+   - Kubernetes version and OS information
+
+4. **Database Metrics**
+   - Connection status (Connected/Disconnected)
+   - SQL Server version
+   - Real-time record counts:
+     - Students count
+     - Courses count
+     - Enrollments count
+     - Departments count
+
+5. **Cluster Health**
+   - Total pods in namespace
+   - Running/Pending/Failed pod counts
+   - Deployment replica status
+   - All pods with their status and locations
+
+---
+
+## ⚡ Performance & Architecture
+
+**High Availability:** This API is deployed with **2 replicas** for fault tolerance and load distribution.
+
+**Load Balancing:** Each HTTP request may be served by a different pod. The LoadBalancer service automatically distributes traffic across healthy pods.
+
+**Auto-Healing:** Kubernetes automatically restarts failed pods and reschedules them on healthy nodes.
+
+**Resource Limits:**
+- Memory: 128Mi (request) / 512Mi (limit)
+- CPU: 100m (request) / 500m (limit)
+
+---
+
+## 💡 Quick Start Guide
+
+1. **Test Connection:** Call `GET /api/systeminfo` to verify the API is running and connected to the database
+2. **View Data:** Use `GET /api/students` or `GET /api/courses` to see seeded data
+3. **Create Records:** Use POST endpoints to add new students, courses, or enrollments
+4. **Monitor Cluster:** Refresh `/api/systeminfo` to see which pod serves each request
+
+---
+
+## 🔧 Troubleshooting
+
+If you see database connection errors:
+1. Check SQL Server pod status: Look at `/api/systeminfo` clusterInfo
+2. Verify service name: Should be `sqlserver-service`
+3. Check if database exists: `StudentManagementDB` should be created automatically
+4. Review pod logs: The startup logs show migration status
+
+**Current Pod Serving This Page:** `{podName}` on node `{nodeName}`
 ",
         Contact = new OpenApiContact
         {
