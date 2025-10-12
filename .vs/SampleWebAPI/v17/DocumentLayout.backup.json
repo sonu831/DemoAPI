@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\SDK\\learnings\\SampleWebAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DE7B6D04-AB02-4D20-8B41-ACD95400A1B4}|SampleWebAPI\\SampleWebAPI.csproj|c:\\sdk\\learnings\\samplewebapi\\samplewebapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE7B6D04-AB02-4D20-8B41-ACD95400A1B4}|SampleWebAPI\\SampleWebAPI.csproj|solutionrelative:samplewebapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE7B6D04-AB02-4D20-8B41-ACD95400A1B4}|SampleWebAPI\\SampleWebAPI.csproj|c:\\sdk\\learnings\\samplewebapi\\samplewebapi\\controllers\\systeminfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE7B6D04-AB02-4D20-8B41-ACD95400A1B4}|SampleWebAPI\\SampleWebAPI.csproj|solutionrelative:samplewebapi\\controllers\\systeminfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE7B6D04-AB02-4D20-8B41-ACD95400A1B4}|SampleWebAPI\\SampleWebAPI.csproj|c:\\sdk\\learnings\\samplewebapi\\samplewebapi\\models\\systeminfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE7B6D04-AB02-4D20-8B41-ACD95400A1B4}|SampleWebAPI\\SampleWebAPI.csproj|solutionrelative:samplewebapi\\models\\systeminfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SystemInfo.cs",
+              "DocumentMoniker": "C:\\SDK\\learnings\\SampleWebAPI\\SampleWebAPI\\Models\\SystemInfo.cs",
+              "RelativeDocumentMoniker": "SampleWebAPI\\Models\\SystemInfo.cs",
+              "ToolTip": "C:\\SDK\\learnings\\SampleWebAPI\\SampleWebAPI\\Models\\SystemInfo.cs",
+              "RelativeToolTip": "SampleWebAPI\\Models\\SystemInfo.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAA6wDUAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T16:19:32.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SystemInfoController.cs",
+              "DocumentMoniker": "C:\\SDK\\learnings\\SampleWebAPI\\SampleWebAPI\\Controllers\\SystemInfoController.cs",
+              "RelativeDocumentMoniker": "SampleWebAPI\\Controllers\\SystemInfoController.cs",
+              "ToolTip": "C:\\SDK\\learnings\\SampleWebAPI\\SampleWebAPI\\Controllers\\SystemInfoController.cs",
+              "RelativeToolTip": "SampleWebAPI\\Controllers\\SystemInfoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAzwAUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T16:18:50.964Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\SDK\\learnings\\SampleWebAPI\\SampleWebAPI\\Program.cs",
+              "RelativeDocumentMoniker": "SampleWebAPI\\Program.cs",
+              "ToolTip": "C:\\SDK\\learnings\\SampleWebAPI\\SampleWebAPI\\Program.cs",
+              "RelativeToolTip": "SampleWebAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKwBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T15:58:20.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "RelativeToolTip": "..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.304\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "ViewState": "AgIAAMMAAAAAAAAAAAAhwO0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-10-08T10:02:16.228Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

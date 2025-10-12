@@ -11,39 +11,8 @@ obj/
 out/
 TestResults/
 
-# Visual Studio files
-.vs/
-.vscode/
-*.dbmdl
-*.bak
-*.backup
-*.bson
-*.cache
-*.pdb
-*.dll
-*.exe
-*.appx
-*.appxbundle
-
-# NuGet Packages
-*.nupkg
-.nuget/
-packages/
-
-# OS Files
-.DS_Store
-Thumbs.db
-
 # User-specific files
 *.suo
 *.user
 *.vspscc
 *.vsscc
-
-# DotNet CLI
-.project.assets.json
-.global.json
-
-# Others
-*.db
-*.mdb
