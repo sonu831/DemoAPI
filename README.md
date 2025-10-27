@@ -484,8 +484,7 @@ kubectl logs -l app=webapi                     # View Web API logs
 kubectl create secret generic webapi-secret --from-env-file=.env  # Create secret
 
 # Build Docker Image (Option 1: Navigate to project folder)
-cd SampleWebAPI/SampleWebAPI
-docker build -t my-webapi:latest17 .
+docker build -t my-webapi:latest17 -f SampleWebAPI/Dockerfile .
 cd ../..
 
 # Build Docker Image (Option 2: From solution root)

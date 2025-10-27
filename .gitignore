@@ -16,3 +16,25 @@ TestResults/
 *.user
 *.vspscc
 *.vsscc
+
+# IDEs and editors
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+## Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+## Visual Studio Trace Files
+*.e2e
+
+## Visual Studio code coverage results
+*.coverage
+*.coveragexml
